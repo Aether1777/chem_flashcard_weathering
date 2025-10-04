@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>flashcards</title>
+    <style>
+      body {
+        background-color: #121212;
+        color: #ffffff;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .flashcard {
+        background-color: #1e1e1e;
+        border: 2px solid #ffffff;
+        border-radius: 8px;
+        padding: 20px;
+        width: 320px;
+        height: 250px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        font-size: 0.95rem;
+        margin-bottom: 20px;
+      }
+
+      .flashcard strong {
+        color: #90caf9;
+      }
+
+      .controls {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .button {
+        background-color: #333;
+        color: #fff;
+        border: 2px solid #888;
+        border-radius: 5px;
+        padding: 10px 15px;
+        cursor: pointer;
+        font-size: 1.1rem;
+        transition: background-color 0.2s;
+      }
+
+      .button:hover {
+        background-color: #555;
+      }
+
+      .counter {
+        font-size: 1rem;
+        min-width: 60px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="flashcard" id="flashcard"></div>
+
+    <div class="controls">
+      <button class="button" id="firstBtn"><</button>
+      <div class="counter" id="counter">1 / 10</div>
+      <button class="button" id="lastBtn">></button>
+    </div>
+
+    <script>
+      const flashcards = [
+        {
+          word: "Evaporation",
+          definition:
+            "The process by which water changes from a liquid to a gas.",
+          example: "A puddle dissapearing during a hot day.",
+          sentence: "Evaporation causes water to rise into the air.",
+        },
+        {
+          word: "Condensation",
+          definition:
+            "The process by which water vapor cools and changes back into liquid.",
+          example: "Sides of a cool drink froming water drops.",
+          sentence: "Condensation forms droplets on a cold surface",
+        },
+        {
+          word: "Precipitation",
+          definition:
+            "Water released from clouds in the form of rain, snow, sleet, or hail.",
+          example: "Rain.",
+          sentence: "Precipitation adds water back to Earth's water cycle.",
+        },
+        {
+          word: "Runoff",
+          definition: "Water that flows over land instead of absorbing.",
+          example: "Water running down a hill.",
+          sentence: "Runoff takes water and puts it into streams.",
+        },
+        {
+          word: "Infiltration",
+          definition: "Water soaking into the ground.",
+          example: "Rain soaking into soil.",
+          sentence: "Infiltration helps refill underground aquifers.",
+        },
+        {
+          word: "Transpiration",
+          definition: "Water released into the air from plant leaves.",
+          example: "Water evaporating from a plants leaf..",
+          sentence: "Transpiration is part of the water cycle in forests.",
+        },
+        {
+          word: "Sediment",
+          definition: "Small particles of rock moved by water, wind, or ice.",
+          example: "Sand settling at the bottom of a river.",
+          sentence: "Sediment built the grand canyon.",
+        },
+        {
+          word: "Weathering",
+          definition: "The breaking down of rocks by wind or water.",
+          example: "Cracks forming in rocks after years of rain and freezing.",
+          sentence: "Weathering breaks rocks into smaller pieces over time.",
+        },
+        {
+          word: "Erosion",
+          definition:
+            "The movement of weathered materials by wind, water, or ice.",
+          example: "A river moving sand.",
+          sentence: "Erosion creates canyons.",
+        },
+        {
+          word: "Metamorphism",
+          definition:
+            "The process by which a rock changes form due to heat and pressure.",
+          example: "Sedimentry rock being formed under heat and presure",
+          sentence: "Metamorphism creates new rock types without melting them.",
+        },
+      ];
+
+      let currentIndex = 0;
+
+      const flashcardEl = document.getElementById("flashcard");
+      const counterEl = document.getElementById("counter");
+      const firstBtn = document.getElementById("firstBtn");
+      const lastBtn = document.getElementById("lastBtn");
+
+      function renderCard(index) {
+        const card = flashcards[index];
+        flashcardEl.innerHTML = `
+        <div><strong>Word:</strong> ${card.word}</div>
+        <div><strong>Definition:</strong> ${card.definition}</div>
+        <div><strong>Example:</strong> ${card.example}</div>
+        <div><strong>Sentence:</strong> ${card.sentence}</div>
+      `;
+        counterEl.textContent = `${index + 1} / ${flashcards.length}`;
+      }
+
+      firstBtn.addEventListener("click", () => {
+        if (currentIndex <= 0) {
+          currentIndex = 0;
+        } else {
+          currentIndex = currentIndex - 1;
+        }
+        renderCard(currentIndex);
+      });
+
+      lastBtn.addEventListener("click", () => {
+        console.log(flashcards.length);
+        if (currentIndex >= flashcards.length - 1) {
+          currentIndex = flashcards.length - 1;
+        } else {
+          currentIndex = currentIndex + 1;
+        }
+        renderCard(currentIndex);
+      });
+
+      renderCard(currentIndex);
+    </script>
+  </body>
+</html>
